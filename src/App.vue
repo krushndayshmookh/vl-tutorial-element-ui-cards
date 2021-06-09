@@ -1,28 +1,58 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <el-row :gutter="24">
+      <el-col :span="24">
+        <h2 class="text-center">Articles</h2>
+      </el-col>
+
+      <el-col :sm="24" :lg="18">
+        <el-row :gutter="24">
+          <el-col
+            v-for="article in articles"
+            :key="article._id"
+            :sm="24"
+            :md="12"
+          >
+            <ArticleCard v-bind="article" />
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :sm="24" :lg="6">
+        <div class="advertisement"></div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import ArticleCard from "./components/ArticleCard.vue";
 
 export default {
-  name: "App",
+  name: "app",
   components: {
-    HelloWorld,
+    ArticleCard,
+  },
+
+  computed: {
+    articles() {
+      return this.$store.getters["articles/articles"];
+    },
   },
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style lang="scss" scoped>
+* {
+  font-family: sans-serif;
+}
+
+.text-center {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.advertisement {
+  height: 250px;
+  width: 100%;
+  background: #dedede;
 }
 </style>
